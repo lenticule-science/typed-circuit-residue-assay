@@ -1,0 +1,28 @@
+{
+  "profile": "org.emsenn.evm.sovereign-enterprise-account.v3",
+  "enterprise": {
+    "nodeId": "typed-circuit-residue-assay",
+    "urn": "urn:ame:typed-circuit-residue-assay",
+    "enterpriseId": "0xa547241b6170b6ff6d500bed11b397319baa6740b52cf03fd3b0daeabd994576"
+  },
+  "chain": {
+    "chainId": 31337,
+    "caip2": "eip155:31337"
+  },
+  "account": {
+    "address": "0x48efd2177468845908699c0e19bec1e38d057225",
+    "caip10": "eip155:31337:0x48efd2177468845908699c0e19bec1e38d057225"
+  },
+  "factory": {
+    "address": "0x7bf3cf1176c4a037d3ea2a5ff3d480359ac65ecd",
+    "userSalt": "0xea7b9a01356dbd0901f2f2c2793705f9f605f40a6ed10e0a2fcda40b0768720e"
+  },
+  "policy": {
+    "signer": "0x5fc81133de6a064953266a8318d7591b96499169",
+    "custody": "settlement-private"
+  },
+  "deployment": {
+    "transaction": "0x3e96a20a0ffca3b949223920948e6eefbec0c87090bd8cf46a7c24daad1f0bfa",
+    "block": 1503
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "name": "Typed Circuit Residue Assay",
+  "description": "Independently assays four separate typed residues of one exact bounded closed route through sovereign hierarchical circuit seams.",
+  "supportedInterfaces": [
+    {
+      "url": "${BASE_URL}/a2a/jsonrpc",
+      "protocolBinding": "JSONRPC",
+      "tenant": "",
+      "protocolVersion": "1.0"
+    },
+    {
+      "url": "${BASE_URL}/a2a/rest",
+      "protocolBinding": "HTTP+JSON",
+      "tenant": "",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "url": "https://emsenn.net/",
+    "organization": "Typed Circuit Residue Assay"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extensions": [
+      {
+        "uri": "ni:///sha-256;wzh-zYeFQCsh4zAzGS34uacNV4qJeIEmCKIUUWyRZ-M",
+        "description": "Sovereign black-box typed-residue assay interface inhabited by this endpoint.",
+        "required": true,
+        "params": {
+          "profile": "org.emsenn.rmn.sovereign-circuit-interface.v1",
+          "account": "eip155:31337:0x48efd2177468845908699c0e19bec1e38d057225",
+          "authority": "ni:///sha-256;IHw-EPrVFnMTwvt4-ns8QKrP3EF7av1pGjiev4mtaUU",
+          "custody": "ni:///sha-256;TFYTFLq06L88kV0zx_RhtuYaoAmTCNQDRIOm0ID3kZ0",
+          "territory": "ni:///sha-256;_LFIKw0Uwj-cv7GpWJ2y76CF-X6XK1N5m9MQc3HKkM0",
+          "component": {
+            "profile": "org.emsenn.rmn.hierarchical-circuit.v3",
+            "law": "ni:///sha-256;i8gOm-7BEfkTaaCv07PBEmAO2nm1rOuP7nITlAj0WFU",
+            "ports": [
+              {
+                "name": "request",
+                "direction": "input",
+                "predicate": "ni:///sha-256;6dvl8G9ZqDVf99Ae67K0XVqK62oDEJXQCXJfeLDd8Gk",
+                "carrier": "ni:///sha-256;6WWu5nLTlxV7RV0uxKIPIvbGOUJ-9X7EiIRS5UFFdAg",
+                "mode": "tensor"
+              },
+              {
+                "name": "receipt",
+                "direction": "output",
+                "predicate": "ni:///sha-256;lsZXah5jFx9Ts0g4STZ62pgbbiIv2AQeNMJBX3HB1_Y",
+                "carrier": "ni:///sha-256;6WWu5nLTlxV7RV0uxKIPIvbGOUJ-9X7EiIRS5UFFdAg",
+                "mode": "tensor"
+              }
+            ],
+            "instances": [],
+            "nets": [],
+            "behavior": {
+              "factors": [
+                {
+                  "inputs": [
+                    "request"
+                  ],
+                  "outputs": [
+                    "receipt"
+                  ],
+                  "rows": [
+                    {
+                      "input": [
+                        {
+                          "positiveEvidence": false,
+                          "negativeEvidence": false
+                        }
+                      ],
+                      "output": [
+                        {
+                          "positiveEvidence": false,
+                          "negativeEvidence": false
+                        }
+                      ]
+                    },
+                    {
+                      "input": [
+                        {
+                          "positiveEvidence": true,
+                          "negativeEvidence": false
+                        }
+                      ],
+                      "output": [
+                        {
+                          "positiveEvidence": true,
+                          "negativeEvidence": false
+                        }
+                      ]
+                    },
+                    {
+                      "input": [
+                        {
+                          "positiveEvidence": false,
+                          "negativeEvidence": true
+                        }
+                      ],
+                      "output": [
+                        {
+                          "positiveEvidence": false,
+                          "negativeEvidence": true
+                        }
+                      ]
+                    },
+                    {
+                      "input": [
+                        {
+                          "positiveEvidence": true,
+                          "negativeEvidence": true
+                        }
+                      ],
+                      "output": [
+                        {
+                          "positiveEvidence": true,
+                          "negativeEvidence": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "extendedAgentCard": false
+  },
+  "securitySchemes": {},
+  "securityRequirements": [],
+  "defaultInputModes": [
+    "application/rmn+cbor"
+  ],
+  "defaultOutputModes": [
+    "application/rmn+cbor"
+  ],
+  "skills": [
+    {
+      "id": "assay-typed-circuit-residue",
+      "name": "Assay typed circuit residue",
+      "description": "Verifies one exact closed par route and keeps Chu, connection, price/erasure, and economic current-affinity residues separate.",
+      "tags": [
+        "obsmetrologia",
+        "rmn",
+        "four",
+        "circuit",
+        "residue",
+        "holonomy"
+      ],
+      "examples": [],
+      "inputModes": [
+        "application/rmn+cbor"
+      ],
+      "outputModes": [
+        "application/rmn+cbor"
+      ],
+      "securityRequirements": []
+    }
+  ],
+  "signatures": []
+}

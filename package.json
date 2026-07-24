@@ -1,0 +1,54 @@
+{
+  "name": "@emsenn/typed-circuit-residue-assay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent typed closed-circuit residue assay over sovereign hierarchical FOUR circuit seams.",
+  "exports": {
+    ".": "./src/assay.mjs",
+    "./client": "./src/client.mjs",
+    "./law": "./src/law.mjs",
+    "./test-provider": "./src/test-provider.mjs"
+  },
+  "bin": {
+    "serve-typed-circuit-residue-assay-a2a": "./bin/server.mjs"
+  },
+  "scripts": {
+    "check": "node --check src/assay.mjs && node --check src/client.mjs && node --check src/law.mjs && node --check src/test-provider.mjs && node --check bin/execute-a2a-task.mjs && node --check bin/server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@a2a-js/sdk": "1.0.0-beta.0",
+    "@emsenn/a2a-contracted-agent-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-contracted-agent-service",
+    "@emsenn/a2a-rmn-part-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-rmn-part-service",
+    "@emsenn/a2a-rmn-task-client-service": "file:../../../../../red-cup-engineering/services/web-services-section/services/a2a-services-section/services/a2a-rmn-task-client-service",
+    "@emsenn/rmn-semantic-conformance": "file:../rmn-semantic-conformance",
+    "@emsenn/rwil-rdf-services": "file:../rwil-rdf-services"
+  },
+  "x-agentic-metro-enterprise": {
+    "node-id": "typed-circuit-residue-assay",
+    "actor": "urn:ame:typed-circuit-residue-assay",
+    "organizational-kind": "micro-enterprise",
+    "owners": [
+      "obsmetrological-services-section"
+    ],
+    "membrane": {
+      "law": "lib/",
+      "lasting-instances": "content/",
+      "append-only-instances": "data/"
+    },
+    "admission": "one exact bounded closed route through declared par seams of one hierarchical circuit family and sovereign occurrence assembly",
+    "refusal": "open or tensor route, receipt replay, authority or commitment drift, collapsed residue dimensions, undeclared border class, automatic fraud judgment, topology synthesis, material access, or fallback assay",
+    "operation-catalog": {
+      "assay-typed-circuit-residue": {
+        "contract": "ni:///sha-256;i8gOm-7BEfkTaaCv07PBEmAO2nm1rOuP7nITlAj0WFU",
+        "protocol": "A2A 1.0",
+        "legacyCompatibility": false
+      }
+    }
+  }
+}

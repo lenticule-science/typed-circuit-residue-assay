@@ -1,0 +1,57 @@
+; org.emsenn.rmn.hierarchical-circuit-trace.v4
+; A residue is a closed typed route over declared par nets of one exact
+; placement-neutral design populated by one exact sovereign assembly.
+
+ni-uri = tstr .regexp "^ni:///sha-256;[A-Za-z0-9_-]{43}$"
+caip-2 = tstr
+caip-10 = tstr
+four = { "positiveEvidence": bool, "negativeEvidence": bool }
+rational = [tstr, tstr]
+
+endpoint = { "instance": tstr / null, "port": tstr }
+port = { "name": tstr, "direction": "input" / "output", "predicate": ni-uri, "carrier": ni-uri, "mode": "tensor" / "par" }
+instance = { "name": tstr, "component": ni-uri }
+net = {
+  "name": tstr, "driver": endpoint, "sinks": [1* endpoint], "mode": "tensor" / "par",
+  "chain": caip-2 / null, "contract": ni-uri / null
+}
+behavior-row = { "input": [* four], "output": [* four] }
+circuit = {
+  "profile": "org.emsenn.rmn.hierarchical-circuit.v2",
+  "law": ni-uri,
+  "ports": [* port], "instances": [* instance], "nets": [* net],
+  "behavior": { "rows": [* behavior-row] }
+}
+circuit-assembly = {
+  "profile": "org.emsenn.rmn.circuit-assembly.v1",
+  "circuit": ni-uri,
+  "placements": [1* {
+    "address": [* tstr],
+    "membrane": { "account": caip-10, "authority": ni-uri, "custody": ni-uri, "territory": ni-uri }
+  }]
+}
+
+seam-receipt = {
+  "originatingSettlement": caip-10,
+  "receiptId": ni-uri,
+  "receiptDigest": ni-uri,
+  "chain": caip-2,
+  "contract": ni-uri,
+  "orientation": -1 / 1,
+  "chu": { "left": four, "right": four },
+  "connection": { "quarterTurns": 0..3 },
+  "priceErasure": { "unit": tstr, "irreversibleAmount": tstr, "priceAmount": tstr },
+  "economicCurrentAffinity": { "current": rational, "affinity": rational }
+}
+
+trace-step = { "net": tstr, "sink": { "instance": tstr, "port": tstr }, "receipt": seam-receipt }
+
+hierarchical-circuit-trace-request = {
+  "kind": "HierarchicalCircuitTraceRequest",
+  "profile": "org.emsenn.rmn.hierarchical-circuit-trace.v4",
+  "circuit": circuit,
+  "components": [* circuit],
+  "assembly": circuit-assembly,
+  "borderClass": { "type": "internal" / "protected", "allowedHolonomy": 0..3 },
+  "trace": [1*64 trace-step]
+}

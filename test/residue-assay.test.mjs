@@ -1,0 +1,24 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { semanticId } from "@emsenn/rmn-semantic-conformance";
+import { CIRCUIT_ASSEMBLY_PROFILE, HIERARCHICAL_CIRCUIT_PROFILE, hierarchicalCircuitId } from "@emsenn/rmn-semantic-conformance/hierarchical-circuit";
+import { FOUR } from "@emsenn/rmn-semantic-conformance/four";
+import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayReceipt, PROVIDER_ACCOUNT } from "../src/assay.mjs";
+import { decodeSemantic } from "@emsenn/rmn-semantic-conformance";
+
+const id = (label) => semanticId(["mark", label]);
+const account = (suffix) => `eip155:31337:0x${suffix.padStart(40, "0")}`;
+function receipt(label, overrides = {}) { return { originatingSettlement: account("1"), receiptId: id(`receipt-${label}`), receiptDigest: id(`digest-${label}`), chain: "eip155:31337", contract: id("seam"), orientation: 1, chu: { left: FOUR.both, right: FOUR.both }, connection: { quarterTurns: 1 }, priceErasure: { unit: "erasure", irreversibleAmount: "1", priceAmount: "1" }, economicCurrentAffinity: { current: ["1", "1"], affinity: ["2", "1"] }, ...overrides }; }
+function fixture() {
+  const pin = (name, direction) => ({ name, direction, mode: "par", predicate: id("evidences"), carrier: id("FOUR") });
+  const leaf = { profile: HIERARCHICAL_CIRCUIT_PROFILE, law: id("leaf-law"), ports: [pin("in", "input"), pin("out", "output")], instances: [], nets: [], behavior: { factors: [{ inputs: ["in"], outputs: ["out"], rows: [FOUR.neither, FOUR.true, FOUR.false, FOUR.both].map((value) => ({ input: [value], output: [value] })) }] } };
+  const leafId = hierarchicalCircuitId(leaf), seam = id("seam");
+  const circuit = { profile: HIERARCHICAL_CIRCUIT_PROFILE, law: id("root-law"), ports: [], instances: [{ name: "left", component: leafId }, { name: "right", component: leafId }], nets: [{ name: "left-to-right", driver: { instance: "left", port: "out" }, sinks: [{ instance: "right", port: "in" }], mode: "par", chain: "eip155:31337", contract: seam }, { name: "right-to-left", driver: { instance: "right", port: "out" }, sinks: [{ instance: "left", port: "in" }], mode: "par", chain: "eip155:31337", contract: seam }], behavior: { factors: [] } };
+  const placement = (address, suffix) => ({ address, membrane: { account: account(suffix), authority: id(`authority-${suffix}`), custody: id(`custody-${suffix}`), territory: id(`territory-${suffix}`) } });
+  const assembly = { profile: CIRCUIT_ASSEMBLY_PROFILE, circuit: hierarchicalCircuitId(circuit), placements: [placement([], "3"), placement(["left"], "1"), placement(["right"], "2")] };
+  const trace = [{ net: "left-to-right", sink: { instance: "right", port: "in" }, receipt: receipt("left") }, { net: "right-to-left", sink: { instance: "left", port: "in" }, receipt: receipt("right", { originatingSettlement: account("2"), connection: { quarterTurns: 0 } }) }];
+  return { circuit, components: [leaf], assembly, borderClass: { type: "protected", allowedHolonomy: 1 }, trace };
+}
+test("the die binds exact request and provider while preserving four typed residue carriers", () => { const result = assayTypedCircuitResidue(fixture()); assert.equal(result.receipt.provider, PROVIDER_ACCOUNT); assert.equal(result.receipt.disposition, "protected-border"); assert.deepEqual(Object.keys(result.receipt.residues).sort(), ["chuSeamDefect", "connectionHolonomy", "economicCurrentAffinity", "priceErasureResidue"].sort()); const term = decodeSemantic(result.canonicalBytes); assert.deepEqual(decodeTypedCircuitResidueAssayReceipt(term[1], term[2]), result.receipt); });
+test("unpriced irreversible erasure remains its own defect rather than becoming zero holonomy", () => { const source = fixture(); source.borderClass = { type: "internal", allowedHolonomy: 0 }; source.trace[0].receipt.connection.quarterTurns = 0; source.trace[1].receipt.priceErasure.priceAmount = "0"; const result = assayTypedCircuitResidue(source); assert.equal(result.receipt.disposition, "unpriced-irreversible-defect"); assert.equal(result.receipt.residues.connectionHolonomy.identity, true); });
+test("the die refuses receipt replay", () => { const source = fixture(); source.assembly.placements.find(({ address }) => address[0] === "right").membrane.account = account("1"); source.trace[1].receipt = { ...source.trace[0].receipt }; assert.throws(() => assayTypedCircuitResidue(source), /duplicated/u); });
