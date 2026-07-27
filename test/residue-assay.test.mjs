@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { semanticId } from "@emsenn/rmn-semantic-conformance";
-import { CIRCUIT_ASSEMBLY_PROFILE, HIERARCHICAL_CIRCUIT_PROFILE, hierarchicalCircuitId } from "@emsenn/rmn-semantic-conformance/hierarchical-circuit";
-import { FOUR } from "@emsenn/rmn-semantic-conformance/four";
+import { semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
+import { CIRCUIT_ASSEMBLY_PROFILE, HIERARCHICAL_CIRCUIT_PROFILE, hierarchicalCircuitId } from "@red-cup-engineering/rmn-semantic-conformance/hierarchical-circuit";
+import { FOUR } from "@red-cup-engineering/rmn-semantic-conformance/four";
 import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayReceipt, PROVIDER_ACCOUNT } from "../src/assay.mjs";
-import { decodeSemantic } from "@emsenn/rmn-semantic-conformance";
+import { decodeSemantic } from "@red-cup-engineering/rmn-semantic-conformance";
 
 const id = (label) => semanticId(["mark", label]);
 const account = (suffix) => `eip155:31337:0x${suffix.padStart(40, "0")}`;

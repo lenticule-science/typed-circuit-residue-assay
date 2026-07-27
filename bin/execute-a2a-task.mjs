@@ -4,9 +4,9 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Message, Role } from "@a2a-js/sdk";
-import { extractRmnPart, rmnPart } from "@emsenn/a2a-rmn-part-service";
-import { checkTerm, decodeSemantic, semanticBytes } from "@emsenn/rmn-semantic-conformance";
-import { createSettlementStore } from "@emsenn/rwil-rdf-services/client";
+import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-service";
+import { checkTerm, decodeSemantic, semanticBytes } from "@red-cup-engineering/rmn-semantic-conformance";
+import { createSettlementStore } from "@lenticule-science/rwil-rdf-projection-service/client";
 import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayRequest } from "../src/assay.mjs";
 import { TYPED_CIRCUIT_RESIDUE_ASSAY_LAW } from "../src/law.mjs";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -18,7 +18,7 @@ export async function executeA2aMessage(source, env = process.env) {
   if (!semanticBytes(request).equals(input.bytes) || request?.[0] !== "ascribe" || request.length !== 3) throw new Error("typed circuit residue request must be canonical typed RMN CBOR");
   checkTerm(request[2], request[1]);
   const result = assayTypedCircuitResidue(decodeTypedCircuitResidueAssayRequest(request[1], request[2])), recordedAt = new Date().toISOString();
-  const store = createSettlementStore({ settlementRoot: ROOT, dataRoot: resolve(ROOT, "data"), agentUrl: env.RWIL_RDF_AGENT });
+  const store = createSettlementStore({ settlementRoot: ROOT, agentUrl: env.RWIL_RDF_AGENT });
   await store.record({ category: "typed-circuit-residue-assay.receipt", recordedAt, record: { ...result.receipt, semanticId: result.semanticId, law: TYPED_CIRCUIT_RESIDUE_ASSAY_LAW.id } });
   return Message.toJSON({ messageId: randomUUID(), contextId: message.contextId, taskId: message.taskId, role: Role.ROLE_AGENT, parts: [rmnPart(result.canonicalBytes, "typed-circuit-residue-receipt.rmn.cbor")], metadata: { disposition: result.receipt.disposition, receiptNi: result.semanticId, circuitNi: result.receipt.circuit, assemblyNi: result.receipt.assembly }, extensions: [], referenceTaskIds: [] });
 }
