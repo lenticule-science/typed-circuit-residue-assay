@@ -1,5 +1,5 @@
 import { semanticBytes, semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { CIRCUIT_TRACE_PROFILE, assayCircuitTrace, encodeCircuitTraceRequest } from "../../rmn-semantic-conformance-die/src/circuit-residue.mjs";
+import { CIRCUIT_TRACE_PROFILE, assayCircuitTrace, encodeCircuitTraceRequest } from "@red-cup-engineering/rmn-semantic-conformance/circuit-residue";
 import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@red-cup-engineering/rmn-semantic-conformance/relational-value";
 
 export const TYPED_CIRCUIT_RESIDUE_ASSAY_PROFILE = "org.emsenn.obsmetrology.typed-circuit-residue-assay.v1";
