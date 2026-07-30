@@ -1,11 +1,11 @@
 import { semanticBytes, semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { CIRCUIT_TRACE_PROFILE, assayCircuitTrace, encodeCircuitTraceRequest } from "@red-cup-engineering/rmn-semantic-conformance/circuit-residue";
+import { CIRCUIT_TRACE_PROFILE, assayCircuitTrace, encodeCircuitTraceRequest } from "../../rmn-semantic-conformance-die/src/circuit-residue.mjs";
 import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@red-cup-engineering/rmn-semantic-conformance/relational-value";
 
 export const TYPED_CIRCUIT_RESIDUE_ASSAY_PROFILE = "org.emsenn.obsmetrology.typed-circuit-residue-assay.v1";
 export const PROVIDER_ACCOUNT = "eip155:31337:0x48efd2177468845908699c0e19bec1e38d057225";
 const NI = /^ni:\/\/\/sha-256;[A-Za-z0-9_-]{43}$/u;
-const DISPOSITIONS = new Set(["chu-seam-mismatch", "unpriced-irreversible-defect", "contract-relative-flat", "protected-border"]);
+const DISPOSITIONS = new Set(["chu-seam-mismatch", "unpriced-irreversible-defect", "closed-flat", "translational-defect", "rotational-protected-border", "mixed-affine-defect"]);
 function fail(code, message) { const error = new Error(message); error.code = code; throw error; }
 function exactKeys(value, keys) { return value && Object.getPrototypeOf(value) === Object.prototype && Object.keys(value).sort().join("\0") === [...keys].sort().join("\0"); }
 function typed(value) { const encoded = encodeRelationalValue(value), term = ["ascribe", encoded.type, encoded.term]; return { id: semanticId(term), bytes: semanticBytes(term), type: encoded.type, term: encoded.term }; }

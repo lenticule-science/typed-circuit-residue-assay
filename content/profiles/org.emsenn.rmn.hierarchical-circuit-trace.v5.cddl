@@ -1,4 +1,4 @@
-; org.emsenn.rmn.hierarchical-circuit-trace.v5
+; org.emsenn.rmn.hierarchical-circuit-trace.v6
 ; A residue is a closed typed route over declared par nets of one exact
 ; placement-neutral design populated by one exact sovereign assembly.
 
@@ -40,7 +40,9 @@ seam-receipt = {
   "contract": ni-uri,
   "orientation": -1 / 1,
   "chu": { "left": four, "right": four },
-  "connection": { "quarterTurns": 0..3 },
+  ; Translation is signed in this named ambient frame, already transported by
+  ; the attesting seam. It is never inferred from route topology or separation.
+  "connection": { "frame": ni-uri, "quarterTurns": 0..3, "translation": [tstr, tstr] },
   "priceErasure": { "unit": tstr, "irreversibleAmount": tstr, "priceAmount": tstr },
   "economicCurrentAffinity": { "current": rational, "affinity": rational }
 }
@@ -49,7 +51,7 @@ trace-step = { "net": tstr, "sink": { "instance": tstr, "port": tstr }, "receipt
 
 hierarchical-circuit-trace-request = {
   "kind": "HierarchicalCircuitTraceRequest",
-  "profile": "org.emsenn.rmn.hierarchical-circuit-trace.v5",
+  "profile": "org.emsenn.rmn.hierarchical-circuit-trace.v6",
   "circuit": circuit,
   "components": [* circuit],
   "assembly": circuit-assembly,

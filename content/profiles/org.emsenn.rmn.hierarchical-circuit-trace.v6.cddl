@@ -1,0 +1,6 @@
+; org.emsenn.rmn.hierarchical-circuit-trace.v6
+; Current trace profile: v6 requires signed translations already transported
+; into one declared ambient frame. The full carrier is retained alongside the
+; v5 migration filename for current deployment compatibility.
+ni-uri = tstr .regexp "^ni:///sha-256;[A-Za-z0-9_-]{43}$"
+seam-connection = { "frame": ni-uri, "quarterTurns": 0..3, "translation": [tstr, tstr] }
