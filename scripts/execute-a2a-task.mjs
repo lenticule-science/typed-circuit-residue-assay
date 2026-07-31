@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { Message, Role } from "@a2a-js/sdk";
 import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-service";
 import { checkTerm, decodeSemantic, semanticBytes } from "@red-cup-engineering/rmn-semantic-conformance";
-import { createSettlementStore } from "@lenticule-science/rwil-rdf-projection-service/client";
+import { createSettlementStore } from "@lenticule-science/witness-journal-rdf-projection-service/client";
 import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayRequest } from "../src/assay.mjs";
 import { TYPED_CIRCUIT_RESIDUE_ASSAY_LAW } from "../src/law.mjs";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
