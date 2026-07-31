@@ -26,47 +26,7 @@
     "@red-cup-engineering/a2a-contracted-agent-service": "2.0.4",
     "@red-cup-engineering/a2a-rmn-part-service": "1.0.0",
     "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.0",
-    "@red-cup-engineering/rmn-semantic-conformance": "6.0.0",
+    "@red-cup-engineering/rmn-semantic-conformance": "6.0.1",
     "@lenticule-science/rwil-rdf-projection-service": "1.0.2"
-  },
-  "x-agentic-metro-enterprise": {
-    "node-id": "typed-circuit-residue-assay",
-    "actor": "urn:ame:typed-circuit-residue-assay",
-    "organizational-kind": "micro-enterprise",
-    "owners": [
-      "obsmetrological-services-section"
-    ],
-    "membrane": {
-      "law": "lib/",
-      "lasting-instances": "content/",
-      "append-only-instances": "data/"
-    },
-    "admission": "one exact bounded closed route through declared par seams of one hierarchical circuit family and sovereign occurrence assembly",
-    "refusal": "open or tensor route, receipt replay, authority or commitment drift, collapsed residue dimensions, undeclared border class, automatic fraud judgment, topology synthesis, material access, or fallback assay",
-    "operation-catalog": {
-      "assay-typed-circuit-residue": {
-        "contract": "ni:///sha-256;i8gOm-7BEfkTaaCv07PBEmAO2nm1rOuP7nITlAj0WFU",
-        "protocol": "A2A 1.0",
-        "legacyCompatibility": false
-      }
-    }
-  },
-  "x-semiotic-voxel": {
-    "profile": "org.harmonious-union.semiotic-voxel.v1",
-    "owner": "lenticule-science",
-    "kind": "actor",
-    "actor": "urn:ame:typed-circuit-residue-assay",
-    "operations": [
-      "assay-typed-circuit-residue"
-    ],
-    "capabilities": [
-      {
-        "capability": "typed-circuit-residue-assay",
-        "faces": [
-          "assay-typed-circuit-residue"
-        ]
-      }
-    ],
-    "package": "@lenticule-science/typed-circuit-residue-assay"
   }
 }

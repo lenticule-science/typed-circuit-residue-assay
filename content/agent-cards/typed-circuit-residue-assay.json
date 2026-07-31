@@ -1,6 +1,6 @@
 {
   "name": "Typed Circuit Residue Assay",
-  "description": "Independently assays four separate typed residues of one exact bounded closed route through sovereign hierarchical circuit seams.",
+  "description": "Assays four separate typed residues of one exact bounded closed route through sovereign hierarchical circuit seams with exact attribution and replay evidence; producer identity neither proves nor disproves correctness.",
   "supportedInterfaces": [
     {
       "url": "${BASE_URL}/a2a/jsonrpc",

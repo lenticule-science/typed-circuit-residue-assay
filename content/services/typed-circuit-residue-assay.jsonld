@@ -3,10 +3,10 @@
   "id": "urn:ame:typed-circuit-residue-assay:service:typed-circuit-residue-v1",
   "type": "Service",
   "name": "Typed circuit residue assay",
-  "summary": "Independently verifies a bounded closed route over declared par seams while preserving Chu, C4, price/erasure, and current-affinity carriers.",
+  "summary": "Verifies a bounded closed route over declared par seams while preserving Chu, C4, signed Z^2 translation, price/erasure, and current-affinity carriers.",
   "attachment": [
     { "id": "ni:///sha-256;i8gOm-7BEfkTaaCv07PBEmAO2nm1rOuP7nITlAj0WFU", "type": "Document", "mediaType": "application/rmn", "name": "Typed circuit residue assay law" },
-    { "id": "ni:///sha-256;uOAB8NXrk03HMYsUiBfZ-zybyjIWXM7CuCcFpmRupXE", "type": "Document", "mediaType": "application/cddl", "name": "org.emsenn.rmn.hierarchical-circuit-trace.v5" }
+    { "id": "ni:///sha-256;VdxoiPdUMO5O1AyAnt_WMY6f3ION2SusNqFMVeYuMUw", "type": "Document", "mediaType": "application/cddl", "name": "org.emsenn.rmn.hierarchical-circuit-trace.v6" }
   ],
   "url": { "type": "Link", "href": "http://127.0.0.1:19826/.well-known/agent-card.json", "mediaType": "application/json" }
 }
