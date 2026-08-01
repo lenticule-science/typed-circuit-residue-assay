@@ -8,7 +8,6 @@ import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-servi
 import { checkTerm, decodeSemantic, semanticBytes } from "@red-cup-engineering/rmn-semantic-conformance";
 import { createSettlementStore } from "@lenticule-science/witness-journal-rdf-projection-service/client";
 import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayRequest } from "../src/assay.mjs";
-import { TYPED_CIRCUIT_RESIDUE_ASSAY_LAW } from "../src/law.mjs";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export async function executeA2aMessage(source, env = process.env) {
   const message = Message.fromJSON(source);
@@ -19,7 +18,7 @@ export async function executeA2aMessage(source, env = process.env) {
   checkTerm(request[2], request[1]);
   const result = assayTypedCircuitResidue(decodeTypedCircuitResidueAssayRequest(request[1], request[2])), recordedAt = new Date().toISOString();
   const store = createSettlementStore({ settlementRoot: ROOT, agentUrl: env.WITNESS_JOURNAL_RDF_AGENT });
-  await store.record({ category: "typed-circuit-residue-assay.receipt", recordedAt, record: { ...result.receipt, semanticId: result.semanticId, law: TYPED_CIRCUIT_RESIDUE_ASSAY_LAW.id } });
+  await store.record({ category: "typed-circuit-residue-assay.receipt", recordedAt, record: { ...result.receipt, semanticId: result.semanticId } });
   return Message.toJSON({ messageId: randomUUID(), contextId: message.contextId, taskId: message.taskId, role: Role.ROLE_AGENT, parts: [rmnPart(result.canonicalBytes, "typed-circuit-residue-receipt.rmn.cbor")], metadata: { disposition: result.receipt.disposition, receiptNi: result.semanticId, circuitNi: result.receipt.circuit, assemblyNi: result.receipt.assembly }, extensions: [], referenceTaskIds: [] });
 }
 try { const source = JSON.parse(readFileSync(0, "utf8")); process.stdout.write(`${JSON.stringify(await executeA2aMessage(source))}\n`); } catch (error) { process.stderr.write(`${error.code ?? "residue-assay-refusal"}: ${error.message}\n`); process.exitCode = 1; }
