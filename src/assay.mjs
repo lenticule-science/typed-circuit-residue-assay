@@ -1,6 +1,6 @@
-import { semanticBytes, semanticId } from "@red-cup-engineering/rmn-semantic-conformance";
-import { CIRCUIT_TRACE_PROFILE, assayCircuitTrace, encodeCircuitTraceRequest } from "@red-cup-engineering/rmn-semantic-conformance/circuit-residue";
-import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@red-cup-engineering/rmn-semantic-conformance/relational-value";
+import { semanticBytes, semanticId } from "@red-cup-engineering/relation-model-notation-runtime";
+import { CIRCUIT_TRACE_PROFILE, assayCircuitTrace, encodeCircuitTraceRequest } from "@red-cup-engineering/relation-model-notation-runtime/circuit-residue";
+import { decodeRelationalValue, encodeRelationalValue, RELATIONAL_VALUE_TYPE } from "@red-cup-engineering/relation-model-notation-runtime/relational-value";
 
 export const TYPED_CIRCUIT_RESIDUE_ASSAY_PROFILE = "org.emsenn.obsmetrology.typed-circuit-residue-assay.v1";
 export const PROVIDER_ACCOUNT = "eip155:31337:0x48efd2177468845908699c0e19bec1e38d057225";
