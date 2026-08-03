@@ -1,24 +1,12 @@
 #!/usr/bin/env node
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
 import { Message, Role } from "@a2a-js/sdk";
 import { extractRmnPart, rmnPart } from "@red-cup-engineering/a2a-rmn-part-service";
-import { checkTerm, decodeSemantic, semanticBytes } from "@red-cup-engineering/relation-model-notation-runtime";
-import { createSettlementStore } from "@red-cup-engineering/witness-journal-rdf-projection-service/client";
-import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayRequest } from "../src/assay.mjs";
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-export async function executeA2aMessage(source, env = process.env) {
-  const message = Message.fromJSON(source);
-  if (message.role !== Role.ROLE_USER) throw new Error("typed circuit residue assay requires an A2A ROLE_USER message");
-  if (!env.WITNESS_JOURNAL_RDF_AGENT) throw new Error("WITNESS_JOURNAL_RDF_AGENT is required; the assay cannot keep an ambient book");
-  const input = extractRmnPart(message.parts), request = decodeSemantic(input.bytes);
-  if (!semanticBytes(request).equals(input.bytes) || request?.[0] !== "ascribe" || request.length !== 3) throw new Error("typed circuit residue request must be canonical typed RMN CBOR");
-  checkTerm(request[2], request[1]);
-  const result = assayTypedCircuitResidue(decodeTypedCircuitResidueAssayRequest(request[1], request[2])), recordedAt = new Date().toISOString();
-  const store = createSettlementStore({ settlementRoot: ROOT, agentUrl: env.WITNESS_JOURNAL_RDF_AGENT });
-  await store.record({ category: "typed-circuit-residue-assay.receipt", recordedAt, record: { ...result.receipt, semanticId: result.semanticId } });
-  return Message.toJSON({ messageId: randomUUID(), contextId: message.contextId, taskId: message.taskId, role: Role.ROLE_AGENT, parts: [rmnPart(result.canonicalBytes, "typed-circuit-residue-receipt.rmn.cbor")], metadata: { disposition: result.receipt.disposition, receiptNi: result.semanticId, circuitNi: result.receipt.circuit, assemblyNi: result.receipt.assembly }, extensions: [], referenceTaskIds: [] });
-}
-try { const source = JSON.parse(readFileSync(0, "utf8")); process.stdout.write(`${JSON.stringify(await executeA2aMessage(source))}\n`); } catch (error) { process.stderr.write(`${error.code ?? "residue-assay-refusal"}: ${error.message}\n`); process.exitCode = 1; }
+import { seavt } from "@red-cup-engineering/witness-journal-entry-service";
+import { appendSeavt } from "@red-cup-engineering/witness-journal-log-service";
+import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayRequest, residueFromBytes } from "../src/assay.mjs";
+function surface(role,token){const match=/^ni:\/\/\/sha-256;([A-Za-z0-9_-]{43})$/u.exec(token);if(!match)throw new TypeError(`${role} must be semantic content identity`);return `semantic-content.${role}.sha256.${Buffer.from(match[1],"base64url").toString("hex")}`;}
+export async function executeA2aMessage(source,env=process.env){const message=Message.fromJSON(source);if(message.role!==Role.ROLE_USER)throw new Error("typed circuit residue assay requires an A2A ROLE_USER message");const request=decodeTypedCircuitResidueAssayRequest(residueFromBytes(extractRmnPart(message.parts).bytes));const result=assayTypedCircuitResidue(request),recordedAt=new Date().toISOString(),root=resolve(env.TYPED_CIRCUIT_RESIDUE_DATA_ROOT??"data");appendSeavt(root,"typed-circuit.residue-assay",[seavt(surface("receipt",result.semanticId),"semiotic-graph-trace:residue",surface("request",result.receipt.request),recordedAt)],recordedAt);return Message.toJSON({messageId:randomUUID(),contextId:message.contextId,taskId:message.taskId,role:Role.ROLE_AGENT,parts:[rmnPart(result.canonicalBytes,"semiotic-graph-trace-receipt.rmn.cbor")],metadata:{disposition:result.receipt.disposition,receiptNi:result.semanticId,circuitNi:result.receipt.circuit,assemblyNi:result.receipt.assembly},extensions:[],referenceTaskIds:[]});}
+try{process.stdout.write(`${JSON.stringify(await executeA2aMessage(JSON.parse(readFileSync(0,"utf8"))))}\n`);}catch(error){process.stderr.write(`${error.code??"residue-assay-refusal"}: ${error.message}\n`);process.exitCode=1;}

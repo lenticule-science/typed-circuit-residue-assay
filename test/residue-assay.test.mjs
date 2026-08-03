@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { semanticId } from "@red-cup-engineering/relation-model-notation-runtime";
+import { semanticJsonId } from "../src/semantic-json.mjs";
 import { CIRCUIT_ASSEMBLY_PROFILE, HIERARCHICAL_CIRCUIT_PROFILE, hierarchicalCircuitId } from "@red-cup-engineering/relation-model-notation-runtime/hierarchical-circuit";
 import { FOUR } from "@red-cup-engineering/relation-model-notation-runtime/four";
 import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayReceipt, PROVIDER_ACCOUNT } from "../src/assay.mjs";
 import { decodeSemantic } from "@red-cup-engineering/relation-model-notation-runtime";
 
-const id = (label) => semanticId(["mark", label]);
+const id = (label) => semanticJsonId(["mark", label]);
 const account = (suffix) => `eip155:31337:0x${suffix.padStart(40, "0")}`;
 function receipt(label, overrides = {}) { return { originatingSettlement: account("1"), receiptId: id(`receipt-${label}`), receiptDigest: id(`digest-${label}`), chain: "eip155:31337", contract: id("seam"), orientation: 1, chu: { left: FOUR.both, right: FOUR.both }, connection: { frame: id("ambient-frame"), quarterTurns: 1, translation: ["0", "0"] }, priceErasure: { unit: "erasure", irreversibleAmount: "1", priceAmount: "1" }, economicCurrentAffinity: { current: ["1", "1"], affinity: ["2", "1"] }, ...overrides }; }
 function fixture() {
