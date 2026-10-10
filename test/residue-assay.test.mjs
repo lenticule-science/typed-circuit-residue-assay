@@ -4,7 +4,7 @@ import { semanticJsonId } from "../src/semantic-json.mjs";
 import { CIRCUIT_ASSEMBLY_PROFILE, HIERARCHICAL_CIRCUIT_PROFILE, hierarchicalCircuitId } from "@red-cup-engineering/relation-model-notation-runtime/hierarchical-circuit";
 import { FOUR } from "@red-cup-engineering/relation-model-notation-runtime/four";
 import { assayTypedCircuitResidue, decodeTypedCircuitResidueAssayReceipt, PROVIDER_ACCOUNT } from "../src/assay.mjs";
-import { decodeSemantic } from "@red-cup-engineering/relation-model-notation-runtime";
+import { decodeSemantic } from "@red-cup-engineering/relation-model-notation-cbor-codec";
 
 const id = (label) => semanticJsonId(["mark", label]);
 const account = (suffix) => `eip155:31337:0x${suffix.padStart(40, "0")}`;
