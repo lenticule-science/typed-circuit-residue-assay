@@ -28,7 +28,7 @@
     "@red-cup-engineering/relation-model-notation-cbor-codec": "0.1.1",
     "@red-cup-engineering/relation-model-notation-runtime": "0.12.1",
     "@red-cup-engineering/relational-value-graph-service": "0.1.4",
-    "@red-cup-engineering/semantic-content-identify-service": "0.2.2",
+    "@red-cup-engineering/semantic-content-identify-service": "0.2.5",
     "@red-cup-engineering/witness-journal-entry-service": "0.1.5",
     "@red-cup-engineering/witness-journal-log-service": "0.1.4"
   }
