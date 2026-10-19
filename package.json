@@ -31,5 +31,9 @@
     "@red-cup-engineering/semantic-content-identify-service": "0.2.5",
     "@red-cup-engineering/witness-journal-entry-service": "0.1.5",
     "@red-cup-engineering/witness-journal-log-service": "0.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lenticule-science/typed-circuit-residue-assay.git"
   }
 }
