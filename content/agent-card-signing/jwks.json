@@ -1,1 +1,1 @@
-{"keys":[{"crv":"Ed25519","x":"-I7crDh1vaIfrizgN2Wb354faRh3bCnTdPQyHx-Tf4M","kty":"OKP","kid":"typed-circuit-residue-assay-ed25519","alg":"EdDSA","use":"sig"}]}
+{"keys":[{"crv":"Ed25519","x":"uRy3xuYgFwnxv4Q-0hpdktrpZD7VxgA3S7v3cmoLpOg","kty":"OKP","kid":"typed-circuit-residue-assay-ed25519-2026-10-21","alg":"EdDSA","use":"sig"}]}
