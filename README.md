@@ -8,3 +8,10 @@
 <!-- 561-group-standards:badges:end -->
 
 Independent typed closed-circuit residue assay over sovereign hierarchical FOUR circuit seams.
+
+## Code
+
+This repository holds section data only. The executable code that used to live here moved to
+[`red-cup-engineering/typed-circuit-residue-assay`](https://github.com/red-cup-engineering/typed-circuit-residue-assay) (received 2026-10-24 from
+`lenticule-science/typed-circuit-residue-assay@31512ae1d4fa`). That engine reads this data from `SECTION_ROOT` (default: its current working directory),
+so point `SECTION_ROOT` at a checkout of this repository.
